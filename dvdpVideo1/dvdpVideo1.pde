@@ -15,7 +15,7 @@ void setup()
   noCursor();
   
   // Init & Start capturing the images from the camera
-  cam = new Capture(this, 640, 480);
+  cam = new Capture(this, 1920, 1080);
   cam.start();
   
   //image stuff
@@ -32,7 +32,7 @@ void setup()
 
 void draw() 
 {
-  float lvl = in.mix.level();//getMaxSamp(in.mix.toArray());
+  float lvl = 0;//in.mix.level();//getMaxSamp(in.mix.toArray());
 //  println("lvl: " + lvl);
   float tm = millis()/1000.f;
   background(0);
@@ -47,10 +47,10 @@ void draw()
   cam.loadPixels();
   
   float camLogoSweep = (cos(tm/15.f)+1.f)/2.f;
-  float brtFreqScale = 0.5+(cos(2+tm/4.f)+1.f)/2.f;
-  int numHBars = 480/2;
-  int barSegments = 400;
-  float hBarAmplitude = 100*lvl + 2*height * 1.f/numHBars;
+  float brtFreqScale = 18.95;//+(cos(2+tm/4.f)+1.f)/2.f;
+  int numHBars = 780;
+  int barSegments = 800;
+  float hBarSpacing = 3*height * 1.f/numHBars;
   float camToScr[] = new float[]{width*1.f/barSegments,height*1.f/numHBars};
   noFill();
   for(int i = 0; i < numHBars; i++)
@@ -62,12 +62,12 @@ void draw()
       float xNorm = (j*1.f/barSegments);
       float yNorm = (i*1.f/numHBars);
       int logoIndex = (int)((int)(yNorm*creatureTex.height)*creatureTex.width + (xNorm*creatureTex.width));
-      int camIndex = (int)((yNorm*cam.height) *cam.width + xNorm*cam.width);
+      int camIndex = (int)((int)(yNorm*cam.height) *cam.width + xNorm*cam.width);
       float lbrt = brightness(creatureTex.pixels[logoIndex]);
       float cbrt = brightness(cam.pixels[camIndex]);
       float brt = camLogoSweep * cbrt + (1-camLogoSweep)*lbrt;
       curT+= brtFreqScale*(brt/255.f);
-      vertex(j*camToScr[0],i*camToScr[1] + hBarAmplitude*sin(curT));
+      vertex(j*camToScr[0],i*camToScr[1] + hBarSpacing*sin(curT));
     }
     endShape();
   }
