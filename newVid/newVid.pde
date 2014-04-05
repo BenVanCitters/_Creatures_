@@ -7,7 +7,7 @@ CamHalfTone c;
 
 void setup() 
 {
-  size(displayWidth, displayHeight,OPENGL);
+  size(displayWidth, displayHeight,P3D);
 //  size(640, 480,OPENGL);
   s = new Sunset();
   grad = loadImage("creature-gradient-1.jpg");
@@ -34,6 +34,9 @@ void drawTextureBackground()
   endShape();
   
 }
+void movieEvent(Movie m) {
+  m.read();
+}
 
 void draw() 
 {
@@ -42,6 +45,6 @@ void draw()
 //  s.draw();
   c.update();
   c.draw(); 
-println("frameRate: " + frameRate);
+//println("frameRate: " + frameRate);
 }
 

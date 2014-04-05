@@ -10,8 +10,8 @@ Capture cam;
 void setup()
 {
   
-  size(displayWidth,displayHeight,P2D);
-  
+  size(displayWidth,displayHeight);
+  smooth();  
   noCursor();
   
   // Init & Start capturing the images from the camera
@@ -20,7 +20,7 @@ void setup()
   
   //image stuff
   PImage creatureLogo = loadImage("logo_inv1.png");
-  creatureTex = createGraphics(width,height,P2D);
+  creatureTex = createGraphics(width,height);
   creatureTex.beginDraw();
   creatureTex.image(creatureLogo,0,0,creatureTex.width,creatureTex.height);
   creatureTex.endDraw();
@@ -71,7 +71,8 @@ void draw()
       vertex(j*camToScr[0],i*camToScr[1] + hBarAmplitude*sin(curT));
     }
     endShape();
-    
+    pushMatrix();
+    translate(0,(height*1.f/numHBars)/3.f);
     stroke(0,255,0);
     beginShape();
     for(int j = 0; j < barSegments; j++)
@@ -88,6 +89,7 @@ void draw()
     }
     endShape();
     
+    translate(0,(height*1.f/numHBars)/3.f);
     stroke(0,0,255);
     beginShape();
     for(int j = 0; j < barSegments; j++)
@@ -103,6 +105,7 @@ void draw()
       vertex(j*camToScr[0],i*camToScr[1] + hBarAmplitude*sin(curT));
     }
     endShape();
+    popMatrix();
   }
   println("framerate: " + frameRate);
 }

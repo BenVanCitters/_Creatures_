@@ -48,7 +48,7 @@ void draw()
   
   float camLogoSweep = (cos(tm/15.f)+1.f)/2.f;
   float brtFreqScale = 0.5+(cos(2+tm/4.f)+1.f)/2.f;
-  int numHBars = 480/2;
+  int numHBars = 480/4;
   int barSegments = 400;
   float hBarAmplitude = 100*lvl + 2*height * 1.f/numHBars;
   float camToScr[] = new float[]{width*1.f/barSegments,height*1.f/numHBars};
